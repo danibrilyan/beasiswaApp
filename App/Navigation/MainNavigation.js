@@ -14,7 +14,7 @@ const Stack = createStackNavigator();
 function MainNavigator() {
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator initialRouteName="Home" >
           <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Verifikasi Beasiswa ANTAM' }} />
           <Stack.Screen name="RencanaStudi" component={RencanaStudiScreen} options={{ title: 'Rencana Studi' }} />
           <Stack.Screen name="HasilStudi" component={HasilStudiScreen} options={{ title: 'Hasil Studi' }} />

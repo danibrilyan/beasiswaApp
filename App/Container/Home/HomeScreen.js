@@ -1,11 +1,14 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { View, TouchableOpacity, Image } from 'react-native'
 import {Container, Header, Content, Footer, FooterTab, Button, Text } from 'native-base'
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faAddressCard, faChalkboardTeacher, faGraduationCap, faDollarSign } from '@fortawesome/free-solid-svg-icons'
+import { AuthContext } from '../../Context/AuthContext';
+import { StackActions } from '@react-navigation/native';
 
 export default function HomeScreen({navigation}) {
+    const {auth, authdispatch} = useContext(AuthContext)
     return (
         <Container>
             <Content>
@@ -18,7 +21,8 @@ export default function HomeScreen({navigation}) {
                     <Text style={{fontSize:22}}>Hi, Syahri Ramadhan</Text>
                     <Text style={{fontSize:16}}>Mahasiswa Teknik Elektro</Text>
                     <Text style={{fontSize:16}}>Universitas Hasanuddin - Makassar</Text>
-                    <Button style={{marginTop:10}}><Text>Pemasukan Berkas</Text></Button>
+                    <Button 
+                        style={{marginTop:10}}><Text>Pemasukan Berkas</Text></Button>
                 </View>
                 <View style={{padding:20, backgroundColor:'#CFCFCF', borderBottomWidth:1, borderBottomColor:'#CFCFCF'}}>
                     <Grid>
@@ -80,7 +84,12 @@ export default function HomeScreen({navigation}) {
                     <Button>
                         <Text style={{color:'black'}}>Riwayat</Text>
                     </Button>
-                    <Button>
+                    <Button onPress={()=>{
+                            authdispatch({type:'SET_DATA', data:false})
+                            navigation.dispatch(
+                                StackActions.replace('RegistrationNav')
+                            )
+                        }} >
                         <Text style={{color:'black'}}>Akun</Text>
                     </Button>
                 </FooterTab>

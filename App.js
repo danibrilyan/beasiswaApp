@@ -20,8 +20,8 @@ function App(){
     <MultiProvider providers={[
       <AuthContextProvider/>,  
     ]}>
-      <RegistrationNavigator/>
-      {/* <MainNavigator/> */}
+      {/* <RegistrationNavigator/> */}
+      <AppNavigator/>
     </MultiProvider>
   )
 }

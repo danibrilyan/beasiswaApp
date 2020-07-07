@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 // import MainTabNavigator from './MainTabNavigator'
 import LoginScreen from '../Container/Account/LoginScreen';
 import RegistrationScreen from '../Container/Registration/RegistrationScreen';
+import VerifikasiScreen from '../Container/Account/VerifikasiScreen';
 
 const Stack = createStackNavigator();
 
@@ -12,8 +13,9 @@ function RegistrationNavigator() {
     return (
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Login">
-          <Stack.Screen name="Login" component={LoginScreen}  options={{ title: 'Verifikasi Beasiswa ANTAM' }}/>
+          <Stack.Screen name="Login" component={LoginScreen}  options={{ title: 'Verifikasi Beasiswa ANTAM' }}/>          
           <Stack.Screen name="Registration" component={RegistrationScreen}  options={{ title: 'Pendaftaran Calon Peserta' }}/>        
+          <Stack.Screen name="Verifikasi" component={VerifikasiScreen}  options={{ title: 'Verifikasi OTP' }}/>
         </Stack.Navigator>
       </NavigationContainer>
     );

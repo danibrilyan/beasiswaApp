@@ -1,10 +1,13 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import { View, FlatList, TouchableOpacity, Image } from 'react-native'
 import { Container, Header, Content, Footer, FooterTab, Button, Text } from 'native-base'
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import logoantam from '../../Assets/Images/antam.png'
+import { AuthContext } from '../../Context/AuthContext';
+import { StackActions } from '@react-navigation/native';
 
 export default function LoginScreen({navigation}) {
+    const {auth, authdispatch} = useContext(AuthContext)
     return (
         <Container>
             <Content>
@@ -34,8 +37,10 @@ export default function LoginScreen({navigation}) {
                 </View>
             </Content>
             <View style={{flexDirection:'row'}}>
-                <Button style={{width:'47%', margin:5, justifyContent:'center'}} onPress={()=>navigation.navigate('Registration')}><Text>Login</Text></Button>
-                <Button style={{width:'47%', margin:5, justifyContent:'center'}} onPress={()=>navigation.navigate('Registration')}><Text>Daftar</Text></Button>
+                <Button style={{width:'47%', margin:5, justifyContent:'center'}} 
+                    onPress={()=>navigation.navigate('Registration')
+                    }><Text>Login</Text></Button>
+                <Button style={{width:'47%', margin:5, justifyContent:'center'}} onPress={()=>navigation.navigate('Verifikasi')}><Text>Daftar</Text></Button>
             </View>
         </Container>
         
