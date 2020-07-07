@@ -176,7 +176,7 @@ function DataPersyaratan(){
     )
 }
 
-export default function ProfileScreen({navigation}) {
+export default function RegistrationScreen({navigation}) {
     const [step, setstep] = useState(0)
     return (
         <Container>
