@@ -46,8 +46,8 @@ function AppNavigator() {
           headerShown: false
         }}>
           <Stack.Screen name="SplashScreen" component={SplashScreen} /> 
-          <Stack.Screen name="MainNav" component={MainNavigator} />
-          <Stack.Screen name="RegistrationNav" component={RegistrationNavigator} />
+          <Stack.Screen name="MainNavigator" component={MainNavigator} />
+          <Stack.Screen name="RegistrationNavigator" component={RegistrationNavigator} />
         </Stack.Navigator>
       </NavigationContainer>
     );

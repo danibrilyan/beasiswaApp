@@ -10,12 +10,12 @@ export default function SplashScreen({navigation}) {
         setTimeout( () => {
             if(!auth){
                 navigation.dispatch(
-                    StackActions.replace('MainNav')
+                    StackActions.replace('MainNavigator')
                 )                
             }
             else{
                 navigation.dispatch(
-                    StackActions.replace('RegistrationNav')
+                    StackActions.replace('RegistrationNavigator')
                 )
             }
         },5000);

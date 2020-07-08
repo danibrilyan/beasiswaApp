@@ -87,7 +87,7 @@ export default function HomeScreen({navigation}) {
                     <Button onPress={()=>{
                             authdispatch({type:'SET_DATA', data:false})
                             navigation.dispatch(
-                                StackActions.replace('RegistrationNav')
+                                StackActions.replace('RegistrationNavigator')
                             )
                         }} >
                         <Text style={{color:'black'}}>Akun</Text>
