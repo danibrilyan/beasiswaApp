@@ -12,7 +12,9 @@ import RencanaStudiScreen from '../Container/RencanaStudi/RencanaStudiScreen';
 import HasilStudiScreen from '../Container/HasilStudi/HasilStudiScreen';
 import StudiAkhirScreen from '../Container/StudiAkhir/StudiAkhirScreen';
 import AccountScreen from '../Container/Account/AccountScreen';
+import VerifikasiScreen from '../Container/Account/VerifikasiScreen';
 import { AuthContext } from '../Context/AuthContext';
+
 
 
 const Stack = createStackNavigator();
@@ -21,7 +23,8 @@ function RegistrationNavigator(){
   return(
     <Stack.Navigator initialRouteName="Login">
       <Stack.Screen name="Login" component={LoginScreen}  options={{ title: 'Verifikasi Beasiswa ANTAM' }}/>
-      <Stack.Screen name="Registration" component={RegistrationScreen}  options={{ title: 'Pendaftaran Calon Peserta' }}/>        
+      <Stack.Screen name="Registration" component={RegistrationScreen}  options={{ title: 'Pendaftaran Calon Peserta' }}/> 
+      <Stack.Screen name="Verifikasi" component={VerifikasiScreen}  options={{ title: 'Verifikasi OTP' }}/>         
     </Stack.Navigator>
   )
 }
@@ -46,8 +49,9 @@ function AppNavigator() {
           headerShown: false
         }}>
           <Stack.Screen name="SplashScreen" component={SplashScreen} /> 
-          <Stack.Screen name="MainNavigator" component={MainNavigator} />
           <Stack.Screen name="RegistrationNavigator" component={RegistrationNavigator} />
+          <Stack.Screen name="MainNavigator" component={MainNavigator} />
+          
         </Stack.Navigator>
       </NavigationContainer>
     );

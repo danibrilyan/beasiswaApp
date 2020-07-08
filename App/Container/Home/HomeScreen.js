@@ -4,8 +4,7 @@ import {Container, Header, Content, Footer, FooterTab, Button, Text } from 'nati
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faAddressCard, faChalkboardTeacher, faGraduationCap, faDollarSign } from '@fortawesome/free-solid-svg-icons'
-import { AuthContext } from '../../Context/AuthContext';
-import { StackActions } from '@react-navigation/native';
+import { AuthContext, userlogout } from '../../Context/AuthContext';
 
 export default function HomeScreen({navigation}) {
     const {auth, authdispatch} = useContext(AuthContext)
@@ -85,10 +84,7 @@ export default function HomeScreen({navigation}) {
                         <Text style={{color:'black'}}>Riwayat</Text>
                     </Button>
                     <Button onPress={()=>{
-                            authdispatch({type:'SET_DATA', data:false})
-                            navigation.dispatch(
-                                StackActions.replace('RegistrationNavigator')
-                            )
+                            userlogout(authdispatch, navigation)
                         }} >
                         <Text style={{color:'black'}}>Akun</Text>
                     </Button>
