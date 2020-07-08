@@ -10,12 +10,16 @@ import React from 'react';
 
 import MultiProvider from "./App/Config/MultiProvider"
 import AuthContextProvider from "./App/Context/AuthContext"
+import UniversitasProvider from "./App/Context/UniversitasContext"
+import DomisiliProvider from "./App/Context/DomisiliContext"
 import AppNavigator from './App/Navigation/AppNavigation';
 
 function App(){
   return(
     <MultiProvider providers={[
-      <AuthContextProvider/>,  
+      <AuthContextProvider/>, 
+      <UniversitasProvider/>,
+      <DomisiliProvider/>
     ]}>
       <AppNavigator/>
     </MultiProvider>

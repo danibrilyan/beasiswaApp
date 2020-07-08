@@ -14,6 +14,10 @@ import StudiAkhirScreen from '../Container/StudiAkhir/StudiAkhirScreen';
 import AccountScreen from '../Container/Account/AccountScreen';
 import VerifikasiScreen from '../Container/Account/VerifikasiScreen';
 import { AuthContext } from '../Context/AuthContext';
+import ProfileScreen from '../Container/Registration/ProfileScreen';
+import AkademikScreen from '../Container/Registration/AkademikScreen';
+import RekeningScreen from '../Container/Registration/RekeningScreen';
+import PersyaratanScreen from '../Container/Registration/PersyaratanScreen';
 
 
 
@@ -23,7 +27,10 @@ function RegistrationNavigator(){
   return(
     <Stack.Navigator initialRouteName="Login">
       <Stack.Screen name="Login" component={LoginScreen}  options={{ title: 'Verifikasi Beasiswa ANTAM' }}/>
-      <Stack.Screen name="Registration" component={RegistrationScreen}  options={{ title: 'Pendaftaran Calon Peserta' }}/> 
+      <Stack.Screen name="Profile" component={ProfileScreen}  options={{ title: 'Pendaftaran Calon Peserta' }}/> 
+      <Stack.Screen name="Akademik" component={AkademikScreen}  options={{ title: 'Pendaftaran Calon Peserta' }}/> 
+      <Stack.Screen name="Rekening" component={RekeningScreen}  options={{ title: 'Pendaftaran Calon Peserta' }}/> 
+      <Stack.Screen name="Persyaratan" component={PersyaratanScreen}  options={{ title: 'Pendaftaran Calon Peserta' }}/> 
       <Stack.Screen name="Verifikasi" component={VerifikasiScreen}  options={{ title: 'Verifikasi OTP' }}/>         
     </Stack.Navigator>
   )

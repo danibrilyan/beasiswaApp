@@ -1,13 +1,22 @@
-import React, {useContext} from 'react'
+import React, {useEffect, useContext} from 'react'
 import { View, TouchableOpacity, Image } from 'react-native'
 import {Container, Header, Content, Footer, FooterTab, Button, Text } from 'native-base'
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faAddressCard, faChalkboardTeacher, faGraduationCap, faDollarSign } from '@fortawesome/free-solid-svg-icons'
 import { AuthContext, userlogout } from '../../Context/AuthContext';
+import { DomisiliContext } from '../../Context/DomisiliContext';
+import { UniversitasContext } from '../../Context/UniversitasContext';
 
 export default function HomeScreen({navigation}) {
     const {auth, authdispatch} = useContext(AuthContext)
+    const {Domisili} = useContext(DomisiliContext)
+    const {Universitas} = useContext(UniversitasContext)
+    
+    useEffect(() => {
+        console.log('domisili', Domisili)
+        console.log('Universitas', Universitas)
+    }, [])
     return (
         <Container>
             <Content>
