@@ -23,7 +23,7 @@ api.interceptors.request.use(async function (config) {
 
 const user_auth = (data) => api.post('/auth/login', data);
 const user_register = (data) => api.post('/user/register', data);
-const profile_select = () => api.get('/profile');
+const profile_select = (telp) => api.get('/profile?Telp='+telp);
 const profile_register = (data) => api.post('/profile/create', data);
 const profile_update = (id, data) => api.put('/profile/'+id, data);
 const profile_delete = (_id) => api.delete('/profile/'+_id);

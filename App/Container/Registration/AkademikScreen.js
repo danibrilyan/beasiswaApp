@@ -188,7 +188,7 @@ export default function AkademikScreen({route, navigation}) {
                             Semester : Semester,
                             BiayaSKS : dataBiayaSKS,
                             BiayaSPP : dataBiayaSPP,
-                            DokumenRekening: DokumenRekening
+                            DokumentKartuMahasiswa: DokumentKartuMahasiswa
                         }
                         console.log(data)
                         navigation.navigate('Rekening', {dataPermohonan: data})

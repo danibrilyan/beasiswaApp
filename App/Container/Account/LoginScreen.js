@@ -38,7 +38,7 @@ export default function LoginScreen({navigation}) {
             </Content>
             <View style={{flexDirection:'row'}}>
                 <Button style={{width:'47%', margin:5, justifyContent:'center'}}  onPress={()=>navigation.navigate('Verifikasi')}><Text>Masuk</Text></Button>
-                <Button style={{width:'47%', margin:5, justifyContent:'center'}} onPress={()=>navigation.navigate('Profile')}><Text>Daftar</Text></Button>
+                <Button style={{width:'47%', margin:5, justifyContent:'center'}} onPress={()=>navigation.navigate('VerifikasiTelp')}><Text>Daftar</Text></Button>
             </View>
         </Container>
         

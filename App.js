@@ -13,12 +13,14 @@ import AuthContextProvider from "./App/Context/AuthContext"
 import UniversitasProvider from "./App/Context/UniversitasContext"
 import DomisiliProvider from "./App/Context/DomisiliContext"
 import AppNavigator from './App/Navigation/AppNavigation';
+import ProfileProvider from './App/Context/ProfileContext';
 
 function App(){
   return(
     <MultiProvider providers={[
       <AuthContextProvider/>, 
       <UniversitasProvider/>,
+      <ProfileProvider/>, 
       <DomisiliProvider/>
     ]}>
       <AppNavigator/>

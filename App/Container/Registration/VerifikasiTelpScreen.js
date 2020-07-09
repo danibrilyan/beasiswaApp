@@ -1,12 +1,10 @@
 import React, {useContext, useState} from 'react'
 import { View } from 'react-native'
-import { AuthContext, userlogin } from '../../Context/AuthContext';
 import { Container, Item, Content, Footer, Input, Button, Text } from 'native-base'
-import { StackActions } from '@react-navigation/native';
 import ApiNotification from '../../Services/ApiNotification'
+import AsyncStorage from '@react-native-community/async-storage'
 
-export default function VerifikasiScreen({navigation}) {
-    const {auth, authdispatch} = useContext(AuthContext)
+export default function VerifikasiTelpScreen({navigation}) {
     const [NomorWA, setNomorWA] = useState('')
     const [validWA, setvalidWA] = useState('')
     const [KodeVerifikasi, setKodeVerifikasi] = useState('')
@@ -51,7 +49,7 @@ export default function VerifikasiScreen({navigation}) {
                 }
                 {
                     validWA === "valid"? 
-                    <Button style={{justifyContent:'center'}} onPress={()=>{userlogin(authdispatch, navigation)}}><Text>Masuk</Text></Button> :                     
+                    <Button style={{justifyContent:'center'}} onPress={()=>{ AsyncStorage.setItem('Telp', NomorWA); navigation.navigate('Profile', {NomorWA}) }}><Text>Lanjut ke Pendaftaran</Text></Button> :                     
                     validWA === "validWA" ? 
                     <Button style={{justifyContent:'center'}} 
                         onPress={()=>{

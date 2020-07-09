@@ -1,4 +1,4 @@
-import React, {useEffect, useContext} from 'react'
+import React, {useEffect, useContext, useState} from 'react'
 import { View, TouchableOpacity, Image } from 'react-native'
 import {Container, Header, Content, Footer, FooterTab, Button, Text } from 'native-base'
 import { Col, Row, Grid } from 'react-native-easy-grid';
@@ -7,15 +7,28 @@ import { faAddressCard, faChalkboardTeacher, faGraduationCap, faDollarSign } fro
 import { AuthContext, userlogout } from '../../Context/AuthContext';
 import { DomisiliContext } from '../../Context/DomisiliContext';
 import { UniversitasContext } from '../../Context/UniversitasContext';
+import { ProfileContext, getProfile } from '../../Context/ProfileContext';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default function HomeScreen({navigation}) {
     const {auth, authdispatch} = useContext(AuthContext)
+    const {Profile, Profiledispatch} = useContext(ProfileContext)
     const {Domisili} = useContext(DomisiliContext)
     const {Universitas} = useContext(UniversitasContext)
-    
-    useEffect(() => {
+
+    const [dataUniversitas, setdataUniversitas] = useState('')
+    const [dataFakultas, setdataFakultas] = useState('')
+    const [dataJurusan, setdataJurusan] = useState('')
+
+    useEffect(async() => {
         console.log('domisili', Domisili)
         console.log('Universitas', Universitas)
+        const value = await AsyncStorage.getItem('Telp');
+        getProfile(Profiledispatch)
+        // console.log('Telp',value)
+        // const data = Profile.map(y=>y.Universitas)
+        // console.log('data',data)
+        // setdataUniversitas(data)
     }, [])
     return (
         <Container>
@@ -26,9 +39,9 @@ export default function HomeScreen({navigation}) {
                         uri: 'https://reactnative.dev/img/tiny_logo.png',
                         }}
                     />
-                    <Text style={{fontSize:22}}>Hi, Syahri Ramadhan</Text>
-                    <Text style={{fontSize:16}}>Mahasiswa Teknik Elektro</Text>
-                    <Text style={{fontSize:16}}>Universitas Hasanuddin - Makassar</Text>
+                    <Text style={{fontSize:22, textAlign:'center'}}>Hi, {Profile.map(item=>item.NamaLengkap)}</Text>
+                    <Text style={{fontSize:16, textAlign:'center'}}>Mahasiswa {Profile.map(item=>item.Jurusan)}</Text>
+                    <Text style={{fontSize:16, textAlign:'center'}}>{ dataUniversitas } - {Profile.map(item=>item.Universitas)}</Text>
                     <Button 
                         style={{marginTop:10}}><Text>Pemasukan Berkas</Text></Button>
                 </View>

@@ -18,6 +18,7 @@ import ProfileScreen from '../Container/Registration/ProfileScreen';
 import AkademikScreen from '../Container/Registration/AkademikScreen';
 import RekeningScreen from '../Container/Registration/RekeningScreen';
 import PersyaratanScreen from '../Container/Registration/PersyaratanScreen';
+import VerifikasiTelpScreen from '../Container/Registration/VerifikasiTelpScreen';
 
 
 
@@ -31,7 +32,8 @@ function RegistrationNavigator(){
       <Stack.Screen name="Akademik" component={AkademikScreen}  options={{ title: 'Pendaftaran Calon Peserta' }}/> 
       <Stack.Screen name="Rekening" component={RekeningScreen}  options={{ title: 'Pendaftaran Calon Peserta' }}/> 
       <Stack.Screen name="Persyaratan" component={PersyaratanScreen}  options={{ title: 'Pendaftaran Calon Peserta' }}/> 
-      <Stack.Screen name="Verifikasi" component={VerifikasiScreen}  options={{ title: 'Verifikasi OTP' }}/>         
+      <Stack.Screen name="Verifikasi" component={VerifikasiScreen}  options={{ title: 'Verifikasi OTP' }}/>   
+      <Stack.Screen name="VerifikasiTelp" component={VerifikasiTelpScreen}  options={{ title: 'Register Telp' }}/>      
     </Stack.Navigator>
   )
 }

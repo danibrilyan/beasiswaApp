@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { View, FlatList, TouchableOpacity, Image,SafeAreaView, ScrollView  } from 'react-native'
 import { Container, Header, Content, Footer, FooterTab, Button, Text, Input, Item, Form, Picker } from 'native-base'
 import StepperScreen from './StepperScreen'
@@ -6,7 +6,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
 import DocumentPicker from 'react-native-document-picker';
 
-export default function ProfileScreen({navigation}) {
+export default function ProfileScreen({route, navigation}) {
     const [KTP, setKTP] = useState('')
     const [NamaLengkap, setNamaLengkap] = useState('')
     const [JenisKelamin, setJenisKelamin] = useState('Laki-laki')
@@ -19,6 +19,7 @@ export default function ProfileScreen({navigation}) {
     const [date, setDate] = useState(new Date());
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
+    const [DataNomorWA, setDataNomorWA] = useState('')
 
 
     const onChange = (event, selectedDate) => {
@@ -79,6 +80,11 @@ export default function ProfileScreen({navigation}) {
         }
       }
 
+    useEffect(() => {
+        const {NomorWA} = route.params
+        setDataNomorWA(NomorWA)
+    }, [])
+
     return(
         <Container>
             <Content style={{padding:10}}>  
@@ -88,6 +94,11 @@ export default function ProfileScreen({navigation}) {
                 </View>
                 <StepperScreen step={0}/>
                 <View style={{marginBottom:10}}>
+                    <Text style={{fontSize:14}}>Nomor Whatsapp</Text>        
+                    <Item regular style={{marginBottom:5}}>                   
+                        <Input disabled={true} style={{fontSize:13, height:40}} value={DataNomorWA} />
+                    </Item>
+
                     <Text style={{fontSize:14}}>Nomor KTP</Text>        
                     <Item regular style={{marginBottom:5}}>                   
                         <Input style={{fontSize:13, height:40}} value={KTP} onChangeText={text=>{setKTP(text); }} />
@@ -170,8 +181,9 @@ export default function ProfileScreen({navigation}) {
                     </View>
 
                     <Button style={{margin:5, justifyContent:'center'}}  onPress={()=>{
+                        const { NomorWA } = route.params;
                         var dataPermohonan = {
-                            KTP,
+                            NIK : KTP,
                             NamaLengkap,
                             JenisKelamin,
                             TempatLahir,
@@ -179,7 +191,8 @@ export default function ProfileScreen({navigation}) {
                             Alamat,
                             Foto,
                             DokumenKTP,
-                            DokumenKK
+                            DokumenKK,
+                            Telp : NomorWA
                         }
                         navigation.navigate('Akademik', {dataPermohonan})
                     }}><Text>Lanjut</Text></Button>
