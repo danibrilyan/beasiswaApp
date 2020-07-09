@@ -2,13 +2,83 @@ import React, {useState} from 'react'
 import { View, FlatList, TouchableOpacity, Image,SafeAreaView, ScrollView  } from 'react-native'
 import { Container, Header, Content, Footer, FooterTab, Button, Text, Input, Item, Form, Picker } from 'native-base'
 import StepperScreen from './StepperScreen'
+import DateTimePicker from '@react-native-community/datetimepicker';
+import moment from 'moment';
+import DocumentPicker from 'react-native-document-picker';
 
 export default function ProfileScreen({navigation}) {
-    const [nomorKTP, setnomorKTP] = useState('')
-    const [namaLengkap, setnamaLengkap] = useState('')
-    const [jenisKelamin, setjenisKelamin] = useState('Laki-laki')
-    const [tempatLahir, settempatLahir] = useState('')
-    const [alamat, setalamat] = useState('')
+    const [KTP, setKTP] = useState('')
+    const [NamaLengkap, setNamaLengkap] = useState('')
+    const [JenisKelamin, setJenisKelamin] = useState('Laki-laki')
+    const [TempatLahir, setTempatLahir] = useState('')
+    const [Alamat, setAlamat] = useState('')
+    const [TanggalLahir, setTanggalLahir] = useState('')
+    const [Foto, setFoto] = useState('')
+    const [DokumenKTP, setDokumenKTP] = useState('')
+    const [DokumenKK, setDokumenKK] = useState('')
+    const [date, setDate] = useState(new Date());
+    const [mode, setMode] = useState('date');
+    const [show, setShow] = useState(false);
+
+
+    const onChange = (event, selectedDate) => {
+        const currentDate = selectedDate || date;
+        setShow(Platform.OS === 'ios');
+        setDate(currentDate);
+        setTanggalLahir(moment(currentDate).format("DD-MM-YYYY"))
+    };
+
+    const showMode = currentMode => {
+        setShow(true);
+        setMode(currentMode);
+    };
+
+    const showDatepicker = () => {
+        showMode('date');
+    };
+
+    async function selectOneFile(documentType) {
+        //Opening Document Picker for selection of one file
+        try {
+          const res = await DocumentPicker.pick({
+            type: [DocumentPicker.types.images],
+            //There can me more options as well
+            // DocumentPicker.types.allFiles
+            // DocumentPicker.types.images
+            // DocumentPicker.types.plainText
+            // DocumentPicker.types.audio
+            // DocumentPicker.types.pdf
+          });
+          //Printing the log realted to the file
+          console.log('res : ' + JSON.stringify(res));
+          console.log('URI : ' + res.uri);
+          console.log('Type : ' + res.type);
+          console.log('File Name : ' + res.name);
+          console.log('File Size : ' + res.size);
+          //Setting the state to show single file attributes
+          if(documentType === "Foto"){
+            setFoto(res.uri)
+          }
+          if(documentType === "KTP"){
+            setDokumenKTP(res.uri)
+          }
+          if(documentType === "KK"){
+            setDokumenKK(res.uri)
+          }
+        //   this.setState({ singleFile: res });
+        } catch (err) {
+          //Handling any exception (If any)
+          if (DocumentPicker.isCancel(err)) {
+            //If user canceled the document selection
+            alert('Canceled from single doc picker');
+          } else {
+            //For Unknown Error
+            alert('Unknown Error: ' + JSON.stringify(err));
+            throw err;
+          }
+        }
+      }
+
     return(
         <Container>
             <Content style={{padding:10}}>  
@@ -20,12 +90,12 @@ export default function ProfileScreen({navigation}) {
                 <View style={{marginBottom:10}}>
                     <Text style={{fontSize:14}}>Nomor KTP</Text>        
                     <Item regular style={{marginBottom:5}}>                   
-                        <Input style={{fontSize:13, height:40}} value={nomorKTP} onChangeText={text=>{setnomorKTP(text); }} />
+                        <Input style={{fontSize:13, height:40}} value={KTP} onChangeText={text=>{setKTP(text); }} />
                     </Item>
 
                     <Text style={{fontSize:14}}>Nama Lengkap</Text>
                     <Item regular style={{marginBottom:5}}>
-                        <Input style={{fontSize:13, height:40}} value={namaLengkap} onChangeText={text=>{setnamaLengkap(text); }} />
+                        <Input style={{fontSize:13, height:40}} value={NamaLengkap} onChangeText={text=>{setNamaLengkap(text); }} />
                     </Item>
                     
                     <Text style={{fontSize:14}}>Jenis Kelamin</Text>
@@ -36,8 +106,8 @@ export default function ProfileScreen({navigation}) {
                             headerStyle={{ backgroundColor: "#b95dd3" }}
                             headerBackButtonTextStyle={{ color: "#fff" }}
                             headerTitleStyle={{ color: "#fff" }}
-                            // selectedValue={this.state.selected}
-                            // onValueChange={this.onValueChange.bind(this)}
+                            selectedValue={JenisKelamin}
+                            onValueChange={selectItem=> {setJenisKelamin(selectItem)} }
                         >
                             <Picker.Item label="Laki-laki" value="Laki-laki" />
                             <Picker.Item label="Perempuan" value="Perempuan" />
@@ -46,24 +116,72 @@ export default function ProfileScreen({navigation}) {
 
                     <Text style={{fontSize:14}}>Tempat Lahir</Text>  
                     <Item regular style={{marginBottom:5}}>
-                        <Input style={{fontSize:13, height:40}} value={tempatLahir} onChangeText={text=>{settempatLahir(text); dataPermohonan({tempatLahir:text})}}  />
+                        <Input style={{fontSize:13, height:40}} value={TempatLahir} onChangeText={text=>{setTempatLahir(text); }}  />
                     </Item>
 
                     <Text style={{fontSize:14}}>Tanggal Lahir</Text>  
+                    
                     <Item regular style={{marginBottom:5}}>
-                        <Input style={{fontSize:13, height:40}}  />
+                        <TouchableOpacity onPress={showDatepicker} style={{width:'100%'}} >
+                            <Input style={{fontSize:13, height:40}} value={TanggalLahir} disabled={true}/>
+                        </TouchableOpacity>
                     </Item>
-
+                    {show && (
+                        <DateTimePicker
+                        testID="dateTimePicker"
+                        value={date}
+                        mode={mode}
+                        is24Hour={true}
+                        display="default"
+                        onChange={onChange}
+                        />
+                    )}
+                    
                     <Text style={{fontSize:14}}>Alamat</Text>  
                     <Item regular style={{marginBottom:5}}>
-                        <Input style={{fontSize:13, height:40}}  />
+                        <Input style={{fontSize:13, height:40}} value={Alamat} onChangeText={text=>setAlamat(text)}  />
                     </Item>
-
-                    <Text>Upload Foto</Text>
-                    <View style={{marginTop:10, marginBottom:20, width:90, height:90, borderRadius:90, backgroundColor:"#CFCFCF"}}></View>
+                    
+                    <View style={{flexDirection:'row'}}>
+                        <View style={{width:'32%', marginRight:10}}>
+                            <Text>Upload Foto</Text>
+                            <TouchableOpacity onPress={()=>selectOneFile("Foto")}>
+                                <View style={{marginTop:10, marginBottom:20, width:90, height:90, borderRadius:90, backgroundColor:"#CFCFCF"}}>
+                                    <Image style={{width:90, height:90, borderRadius:90}} source={{ uri: Foto}} />
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{width:'32%', marginRight:10}}>
+                            <Text>Upload KTP</Text>                    
+                            <TouchableOpacity onPress={()=>selectOneFile("KTP")}>
+                                <View style={{marginTop:10, marginBottom:20, width:90, height:60, backgroundColor:"#CFCFCF"}}>
+                                    <Image style={{width:90, height:60,}} source={{ uri: DokumenKTP}} />
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{width:'32%'}}>
+                            <Text>Upload KK</Text>
+                            <TouchableOpacity onPress={()=>selectOneFile("KK")}>
+                                <View style={{marginTop:10, marginBottom:20, width:90, height:60, backgroundColor:"#CFCFCF"}}>
+                                    <Image style={{width:90, height:60,}} source={{ uri: DokumenKK}} />
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
 
                     <Button style={{margin:5, justifyContent:'center'}}  onPress={()=>{
-                        navigation.navigate('Akademik', {dataPermohonan:'12445'})
+                        var dataPermohonan = {
+                            KTP,
+                            NamaLengkap,
+                            JenisKelamin,
+                            TempatLahir,
+                            TanggalLahir,
+                            Alamat,
+                            Foto,
+                            DokumenKTP,
+                            DokumenKK
+                        }
+                        navigation.navigate('Akademik', {dataPermohonan})
                     }}><Text>Lanjut</Text></Button>
                 </View>
             </Content>

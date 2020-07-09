@@ -4,6 +4,9 @@ import { Container, Header, Content, Footer, FooterTab, Button, Text, Input, Ite
 import StepperScreen from './StepperScreen'
 
 export default function RekeningScreen({navigation}) {
+    const [NomorRekning, setNomorRekning] = useState('')
+    const [NamaBank, setNamaBank] = useState('')
+    const [PemiliRekening, setPemiliRekening] = useState('')
     return(
         <Container>
             <Content style={{padding:8}}>  
