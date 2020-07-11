@@ -27,7 +27,7 @@ const Stack = createStackNavigator();
 function RegistrationNavigator(){
   return(
     <Stack.Navigator initialRouteName="Login">
-      <Stack.Screen name="Login" component={LoginScreen}  options={{ title: 'Verifikasi Beasiswa ANTAM' }}/>
+      <Stack.Screen name="Login" component={LoginScreen}  options={{ title: 'Beasiswa ANTAM' }}/>
       <Stack.Screen name="Profile" component={ProfileScreen}  options={{ title: 'Pendaftaran Calon Peserta' }}/> 
       <Stack.Screen name="Akademik" component={AkademikScreen}  options={{ title: 'Pendaftaran Calon Peserta' }}/> 
       <Stack.Screen name="Rekening" component={RekeningScreen}  options={{ title: 'Pendaftaran Calon Peserta' }}/> 
@@ -41,7 +41,7 @@ function RegistrationNavigator(){
 function MainNavigator(){
   return(
     <Stack.Navigator initialRouteName="Home" >
-      <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Verifikasi Beasiswa ANTAM' }} />
+      <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Beasiswa ANTAM' }} />
       <Stack.Screen name="RencanaStudi" component={RencanaStudiScreen} options={{ title: 'Rencana Studi' }} />
       <Stack.Screen name="HasilStudi" component={HasilStudiScreen} options={{ title: 'Hasil Studi' }} />
       <Stack.Screen name="StudiAkhir" component={StudiAkhirScreen} options={{ title: 'Studi Akhir' }} />

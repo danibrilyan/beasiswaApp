@@ -1,5 +1,5 @@
 // const BASE_URL = 'https://apidashboard.ponxx2020papua.com' //
-const API_URL = 'http://192.168.100.147:500' //
+const API_URL = 'http://202.83.121.246:500/' //
 
 export default {
   Base_Url : API_URL,

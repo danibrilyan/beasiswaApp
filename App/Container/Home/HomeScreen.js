@@ -21,6 +21,8 @@ export default function HomeScreen({navigation}) {
     async function getData(){
         const value = await AsyncStorage.getItem('Telp');
         Api.periode_active().then(res=>{
+            console.log('res.periode', res.data)
+            AsyncStorage.setItem('periode', JSON.stringify(res.data[0]))
             setperiode(res.data)
         })
         Api.profile_select(value).then(async res=>{
@@ -64,7 +66,7 @@ export default function HomeScreen({navigation}) {
                     <Text style={{fontSize:16, textAlign:'center'}}>Mahasiswa {profile.Jurusan}</Text>
                     <Text style={{fontSize:16, textAlign:'center'}}>{ profile.Fakultas } - { profile.Universitas}</Text>
                     <Button 
-                        style={{marginTop:10}}><Text>{periode.map(item=>"Periode Tahun "+item.TahunPeriode+" Semester-"+ item.SemesterPeriode == 1 ? "I" : "II" )}</Text></Button>
+                        style={{marginTop:10}}><Text>{periode.map(item=>"Periode Tahun "+item.TahunPeriode+" Semester-"+ item.SemesterPeriode)}</Text></Button>
                 </View>
                 <View style={{padding:20, backgroundColor:'#CFCFCF', borderBottomWidth:1, borderBottomColor:'#CFCFCF'}}>
                     <Grid>

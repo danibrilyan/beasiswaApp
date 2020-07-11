@@ -17,7 +17,7 @@ export default function LoginScreen({navigation}) {
                 </View>
                 <View style={{padding:15}}>
                     <Text style={{fontSize:16}}>
-                        Selamat Datang di Aplikasi Tim Verifikasi Beasiswa PT. Aneka Tambang UBPN Maluku Utara.
+                        Selamat Datang di Aplikasi Bantuan Beasiswa PT. Aneka Tambang UBPN Maluku Utara.
                     </Text>
                     <Text style={{fontSize:16, marginTop:8}}>
                         Anda dapat menjadi bagian peserta penerima bantuan beasiswa di area Ring 1 dan 2 UBPN Maluku Utara. 

@@ -35,7 +35,7 @@ export const checklogin =  async(navigation) => {
 export const userlogin = (authdispatch, navigation, telp) =>{
     authdispatch({type:'SET_DATA', data: true})
     AsyncStorage.setItem('Telp',telp)
-    getProfile()
+    // getProfile()
     navigation.dispatch(
         StackActions.replace('MainNavigator')
     )

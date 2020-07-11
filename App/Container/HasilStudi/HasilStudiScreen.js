@@ -13,14 +13,17 @@ export default function HasilStudiScreen({navigation}) {
     const [dokumen, setdokumen] = useState('')
     const [isModalVisible, setModalVisible] = useState(false);
     const [kode_profile, setkode_profile] = useState('')
+    const [periode, setperiode] = useState({})
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
     };
 
     async function getData(){
         const value = await AsyncStorage.getItem('kode');
+        const valueperiode = await AsyncStorage.getItem('periode');
         console.log('value', value)
         setkode_profile(value)
+        setperiode(JSON.parse(valueperiode))
         Api.akademikprofile_participant(value).then(res=>{
             console.log('res.data', res.data)
             setstate(res.data)
@@ -91,7 +94,15 @@ export default function HasilStudiScreen({navigation}) {
                 <Modal isVisible={isModalVisible}>
                     <View style={{ backgroundColor:'white', borderRadius:10, padding:10}}>
                         <Text style={{marginBottom:5, borderBottomColor:'#CFCFCF', borderBottomWidth:1}}>Isi Hasil Studi</Text>
-                        <Text style={{fontSize:14}}>Nilai Index Prestasti</Text>        
+                        <Text style={{fontSize:14}}>Tahun</Text>        
+                        <Item regular style={{marginBottom:5}}>                   
+                            <Input style={{fontSize:13, height:40}} disabled={true}  keyboardType='number-pad' value={periode.TahunPeriode} />
+                        </Item>
+                        <Text style={{fontSize:14}}>Semester</Text>        
+                        <Item regular style={{marginBottom:5}}>                   
+                            <Input style={{fontSize:13, height:40}} disabled={true}  keyboardType='number-pad' value={periode.SemesterPeriode} />
+                        </Item>
+                        <Text style={{fontSize:14}}>Nilai Index Prestasi</Text>        
                         <Item regular style={{marginBottom:5}}>                   
                             <Input style={{fontSize:13, height:40}}  keyboardType='number-pad' value={IPS} onChangeText={text=>{setIPS(text)}} />
                         </Item>
@@ -105,7 +116,7 @@ export default function HasilStudiScreen({navigation}) {
                             <Button style={{width:'48%', marginRight:5, justifyContent:'center'}} onPress={toggleModal}><Text style={{textAlign:'center'}}>Tutup</Text></Button>
                             <Button style={{width:'48%', justifyContent:'center'}} onPress={async()=>{
                                 // const value = await AsyncStorage.getItem('kode');
-                                var data = {kode_profile, IPS , Document : dokumen, TahunAkademik: 2010, Semester : 1, DibuatOleh : kode_profile, DibuatTanggal : new Date()}
+                                var data = {kode_profile, IPS , kode_form: periode._id,  Document : dokumen, TahunAkademik: periode.TahunPeriode, Semester : periode.SemesterPeriode, DibuatOleh : kode_profile, DibuatTanggal : new Date()}
                                 Api.akademikprofile_register(data).then(res=>{
                                     console.log('res.data', res.data)
                                     var dataupdate =  [...state, res.data]
@@ -119,9 +130,13 @@ export default function HasilStudiScreen({navigation}) {
                 </Modal>
             </Content>
             <View style={{padding:15}}>
-                <Button style={{ justifyContent:'center', alignItems:'center', alignSelf:'center', width:'100%'}} onPress={toggleModal}>
-                    <Text>Tambah</Text>
-                </Button>
+                {
+                    periode ? 
+                    <Button style={{ justifyContent:'center', alignItems:'center', alignSelf:'center', width:'100%'}} onPress={toggleModal}>
+                        <Text>Tambah</Text>
+                    </Button> : null
+                }
+                
             </View>
         </Container>
     )

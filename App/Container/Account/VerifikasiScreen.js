@@ -25,10 +25,10 @@ export default function VerifikasiScreen({navigation}) {
     return (
         <Container>
             <Content style={{padding:10}}>
-                <View style={{backgroundColor:"#CFCFCF", padding:10, marginBottom:10, borderRadius:8}}>
+                {/* <View style={{backgroundColor:"#CFCFCF", padding:10, marginBottom:10, borderRadius:8}}>
                     <Text style={{fontSize:16, fontWeight:'bold'}}>Perhatian</Text>
                     <Text style={{fontStyle:'italic',fontSize:14,}}>Pastikan anda memasukan data profil dengan benar karena itu menjadi penentu permohonan anda akan di terim</Text>
-                </View> 
+                </View>  */}
                 {
                     validWA === "" || validWA === "validWA" ?
                     <View>

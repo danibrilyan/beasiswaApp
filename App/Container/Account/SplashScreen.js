@@ -23,7 +23,7 @@ export default function SplashScreen({navigation}) {
         <View style={{justifyContent:'center',flex: 1, alignItems:'center', alignSelf:'center', alignContent:'center'}}>
             <Image source={logoantam}/>
             <Text style={{fontSize:16, marginTop:10}}>Selamat Datang di </Text>
-            <Text style={{fontSize:20, fontWeight:'bold'}}>Aplikasi Verifikasi Beasiswa ANTAM</Text>
+            <Text style={{fontSize:20, fontWeight:'bold'}}>Aplikasi Beasiswa ANTAM</Text>
             <Text style={{fontSize:18}}>UBPN Maluku Utara</Text>
         </View>
     )

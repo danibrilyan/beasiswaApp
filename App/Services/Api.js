@@ -12,7 +12,13 @@ const api = axios.create({
 api.interceptors.request.use(async function (config) {
     // set headers after authentication
     const value = await AsyncStorage.getItem('token');
-    config.headers['token'] = value;//localStorage.getItem("token");
+    if(value !== null){
+      config.headers['token'] = value;//localStorage.getItem("token");
+      config.headers['Content-Type'] = "application/json"
+    }
+    else{
+      config.headers['Content-Type'] = "application/json"
+    }
     return config;
 }, function (error) {
   // Do something with request error
@@ -60,7 +66,7 @@ const akademikprofile_update = (id, data) => api.put('/akademikprofile/'+id, dat
 const akademikprofile_delete = (_id) => api.delete('/akademikprofile/'+_id);
 
 const sks_select = () => api.get('/sks');
-const sks_participant = (data) => api.get('/sks?kode_profile='+ data.kode_profile);
+const sks_participant = (kode) => api.get('/sks?kode_profile='+ kode);
 const sks_read = (id) => api.get('/sks/'+id);
 const sks_register = (data) => api.post('/sks/create', data);
 const sks_load = (data) => api.post('/sks/load', data);

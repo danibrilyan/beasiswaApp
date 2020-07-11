@@ -12,7 +12,13 @@ const api = axios.create({
 api.interceptors.request.use(async function (config) {
     // set headers after authentication
     const value = await AsyncStorage.getItem('token');
-    config.headers['token'] = value;//localStorage.getItem("token");
+    if(value !== null){
+      config.headers['token'] = value;//localStorage.getItem("token");
+      config.headers['Content-Type'] = "application/json"
+    }
+    else{
+      config.headers['Content-Type'] = "application/json"
+    }
     return config;
 }, function (error) {
   // Do something with request error
