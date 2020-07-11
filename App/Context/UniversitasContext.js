@@ -16,9 +16,9 @@ export const setUniversitas = (Universitasdispatch, data) =>{
 }
 
 export const getUniversitas = (Universitasdispatch) =>{
-    console.log('getUniversitas')
+    // console.log('getUniversitas')
     Api.universitas_select().then(res=>{
-        console.log('getUniversitas', res.data)
+        // console.log('getUniversitas', res.data)
         Universitasdispatch({type:'SET_DATA', data: res.data})
     }).catch(e=>console.log('error', e))
 }

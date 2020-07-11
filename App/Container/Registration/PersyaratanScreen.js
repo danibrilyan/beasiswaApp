@@ -12,7 +12,7 @@ export default function PersyaratanScreen({route, navigation}) {
     const [Telp, setTelp] = useState('')
     const [KodeVerifikasi, setKodeVerifikasi] = useState('')
     const [kirimVerifikasi, setkirimVerifikasi] = useState('false')
-    const [valid, setvalid] = useState('false')
+    const [ valid, setvalid] = useState('false')
 
     const { dataPermohonan } = route.params;
     return(
@@ -48,7 +48,7 @@ export default function PersyaratanScreen({route, navigation}) {
                 </View>
                 <Button style={{marginBottom:30, justifyContent:'center'}}  onPress={()=>{
                     Api.profile_register(dataPermohonan).then(res=>{
-                        userlogin(authdispatch, navigation)
+                        userlogin(authdispatch, navigation, dataPermohonan.Telp)
                     })
                     
                 }}><Text>Kirim</Text></Button>

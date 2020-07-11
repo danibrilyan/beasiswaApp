@@ -18,9 +18,9 @@ import ProfileProvider from './App/Context/ProfileContext';
 function App(){
   return(
     <MultiProvider providers={[
+      <ProfileProvider/>, 
       <AuthContextProvider/>, 
       <UniversitasProvider/>,
-      <ProfileProvider/>, 
       <DomisiliProvider/>
     ]}>
       <AppNavigator/>

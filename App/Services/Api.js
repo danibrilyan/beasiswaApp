@@ -52,7 +52,7 @@ const akademik_update = (id, data) => api.put('/akademik/'+id, data);
 const akademik_delete = (_id) => api.delete('/akademik/'+_id);
 
 const akademikprofile_select = () => api.get('/akademikprofile');
-const akademikprofile_participant = (data) => api.get('/akademikprofile?kode_profile='+ data.kode_profile);
+const akademikprofile_participant = (kode) => api.get('/akademikprofile?kode_profile='+ kode);
 const akademikprofile_read = (id) => api.get('/akademikprofile/'+id);
 const akademikprofile_register = (data) => api.post('/akademikprofile/create', data);
 const akademikprofile_load = (data) => api.post('/akademikprofile/load', data);
@@ -78,6 +78,7 @@ const biayaprestasi_update = (id, data) => api.put('/biayaprestasi/'+id, data);
 const biayaprestasi_delete = (_id) => api.delete('/biayaprestasi/'+_id);
 
 const periode_select = () => api.get('/periode');
+const periode_active = () => api.get('/periode/active');
 const periode_read = (id) => api.get('/periode/'+id);
 const periode_register = (data) => api.post('/periode/create', data);
 const periode_update = (id, data) => api.put('/periode/'+id, data);
@@ -142,6 +143,7 @@ export const apis = {
     biayaprestasi_delete,
 
     periode_select,
+    periode_active,
     periode_read,
     periode_register,
     periode_update,

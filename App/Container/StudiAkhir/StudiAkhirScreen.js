@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { View, FlatList, TouchableOpacity } from 'react-native'
 import { Container, Header, Content, Footer, FooterTab, Button, Text } from 'native-base'
 
-export default function StudiAkhirScreen() {
+export default function StudiAkhirScreen({navigation}) {
     return (
         <Container>
             <Content>

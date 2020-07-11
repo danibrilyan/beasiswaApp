@@ -51,7 +51,7 @@ export default function VerifikasiScreen({navigation}) {
                 }
                 {
                     validWA === "valid"? 
-                    <Button style={{justifyContent:'center'}} onPress={()=>{userlogin(authdispatch, navigation)}}><Text>Masuk</Text></Button> :                     
+                    <Button style={{justifyContent:'center'}} onPress={()=>{userlogin(authdispatch, navigation, NomorWA)}}><Text>Masuk</Text></Button> :                     
                     validWA === "validWA" ? 
                     <Button style={{justifyContent:'center'}} 
                         onPress={()=>{

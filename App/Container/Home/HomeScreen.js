@@ -5,31 +5,52 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faAddressCard, faChalkboardTeacher, faGraduationCap, faDollarSign } from '@fortawesome/free-solid-svg-icons'
 import { AuthContext, userlogout } from '../../Context/AuthContext';
-import { DomisiliContext } from '../../Context/DomisiliContext';
-import { UniversitasContext } from '../../Context/UniversitasContext';
-import { ProfileContext, getProfile } from '../../Context/ProfileContext';
+// import { DomisiliContext } from '../../Context/DomisiliContext';
+// import { UniversitasContext } from '../../Context/UniversitasContext';
+// import { ProfileContext, getProfile } from '../../Context/ProfileContext';
 import AsyncStorage from '@react-native-community/async-storage';
+import Api from '../../Services/Api'
 
 export default function HomeScreen({navigation}) {
     const {auth, authdispatch} = useContext(AuthContext)
-    const {Profile, Profiledispatch} = useContext(ProfileContext)
-    const {Domisili} = useContext(DomisiliContext)
-    const {Universitas} = useContext(UniversitasContext)
 
-    const [dataUniversitas, setdataUniversitas] = useState('')
-    const [dataFakultas, setdataFakultas] = useState('')
-    const [dataJurusan, setdataJurusan] = useState('')
-
-    useEffect(async() => {
-        console.log('domisili', Domisili)
-        console.log('Universitas', Universitas)
+    const [Universitas, setUniversitas] = useState([])
+    
+    const [profile, setprofile] = useState({})
+    const [periode, setperiode] = useState([])
+    async function getData(){
         const value = await AsyncStorage.getItem('Telp');
-        getProfile(Profiledispatch)
-        // console.log('Telp',value)
-        // const data = Profile.map(y=>y.Universitas)
-        // console.log('data',data)
-        // setdataUniversitas(data)
-    }, [])
+        Api.periode_active().then(res=>{
+            setperiode(res.data)
+        })
+        Api.profile_select(value).then(async res=>{
+            var dataUniversitas = await Api.universitas_select().then(async resUniversitas=>{
+                return await resUniversitas.data
+            })
+            var dataprofile = res.data;
+            var data = dataprofile.map(item=>{
+                return {
+                    _id : item._id,
+                    NamaLengkap :  item.NamaLengkap,
+                    Jurusan :  dataUniversitas.filter(x=>x._id === item.Jurusan).map(y=>y.Nama),
+                    Fakultas :  dataUniversitas.filter(x=>x._id === item.Fakultas).map(y=>y.Nama),
+                    Universitas :  dataUniversitas.filter(x=>x._id === item.Universitas).map(y=>y.Nama)
+                }
+            })
+            setUniversitas(dataUniversitas)
+            setprofile(data[0])
+            console.log('kode',data[0]._id)
+            AsyncStorage.setItem('kode', data[0]._id)
+        })
+    }
+    useEffect(() => {
+        let mounted = true
+        
+        getData()
+        return ()=>{
+            mounted = false
+        }
+    }, [navigation])
     return (
         <Container>
             <Content>
@@ -39,11 +60,11 @@ export default function HomeScreen({navigation}) {
                         uri: 'https://reactnative.dev/img/tiny_logo.png',
                         }}
                     />
-                    <Text style={{fontSize:22, textAlign:'center'}}>Hi, {Profile.map(item=>item.NamaLengkap)}</Text>
-                    <Text style={{fontSize:16, textAlign:'center'}}>Mahasiswa {Profile.map(item=>item.Jurusan)}</Text>
-                    <Text style={{fontSize:16, textAlign:'center'}}>{ dataUniversitas } - {Profile.map(item=>item.Universitas)}</Text>
+                    <Text style={{fontSize:22, textAlign:'center'}}>Hi, {profile.NamaLengkap}</Text>
+                    <Text style={{fontSize:16, textAlign:'center'}}>Mahasiswa {profile.Jurusan}</Text>
+                    <Text style={{fontSize:16, textAlign:'center'}}>{ profile.Fakultas } - { profile.Universitas}</Text>
                     <Button 
-                        style={{marginTop:10}}><Text>Pemasukan Berkas</Text></Button>
+                        style={{marginTop:10}}><Text>{periode.map(item=>"Periode Tahun "+item.TahunPeriode+" Semester-"+ item.SemesterPeriode == 1 ? "I" : "II" )}</Text></Button>
                 </View>
                 <View style={{padding:20, backgroundColor:'#CFCFCF', borderBottomWidth:1, borderBottomColor:'#CFCFCF'}}>
                     <Grid>

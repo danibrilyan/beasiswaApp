@@ -16,9 +16,9 @@ export const setDomisili = (domisilidispatch, data) =>{
 }
 
 export const getDomisili = (domisilidispatch) =>{
-    console.log('getDomisili')
+    // console.log('getDomisili')
     Api.domisili_select().then(res=>{
-        console.log('getDomisili', res.data)
+        // console.log('getDomisili', res.data)
         domisilidispatch({type:'SET_DATA', data: res.data})
     }).catch(e=>console.log('error', e))
 }
