@@ -7,7 +7,7 @@ import SplashScreen from '../Container/Account/SplashScreen';
 import LoginScreen from '../Container/Account/LoginScreen';
 import RegistrationScreen from '../Container/Registration/RegistrationScreen';
 //Screen Logged
-import HomeScreen from '../Container/Home/HomeScreen'
+import HomeScreen from '../Container/Home/HomeContainerScreen'
 import RencanaStudiScreen from '../Container/RencanaStudi/RencanaStudiScreen';
 import HasilStudiScreen from '../Container/HasilStudi/HasilStudiScreen';
 import StudiAkhirScreen from '../Container/StudiAkhir/StudiAkhirScreen';
@@ -19,6 +19,7 @@ import AkademikScreen from '../Container/Registration/AkademikScreen';
 import RekeningScreen from '../Container/Registration/RekeningScreen';
 import PersyaratanScreen from '../Container/Registration/PersyaratanScreen';
 import VerifikasiTelpScreen from '../Container/Registration/VerifikasiTelpScreen';
+import KeuanganScreen from '../Container/Keuangan/KeuanganScreen';
 
 
 
@@ -40,12 +41,12 @@ function RegistrationNavigator(){
 
 function MainNavigator(){
   return(
-    <Stack.Navigator initialRouteName="Home" >
+    <Stack.Navigator initialRouteName="Home"  >
       <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Beasiswa ANTAM' }} />
       <Stack.Screen name="RencanaStudi" component={RencanaStudiScreen} options={{ title: 'Rencana Studi' }} />
       <Stack.Screen name="HasilStudi" component={HasilStudiScreen} options={{ title: 'Hasil Studi' }} />
       <Stack.Screen name="StudiAkhir" component={StudiAkhirScreen} options={{ title: 'Studi Akhir' }} />
-      <Stack.Screen name="Akun" component={AccountScreen} />
+      <Stack.Screen name="Keuangan" component={KeuanganScreen} />
     </Stack.Navigator>
   )
 }

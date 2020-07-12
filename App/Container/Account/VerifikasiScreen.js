@@ -3,6 +3,7 @@ import { View } from 'react-native'
 import { AuthContext, userlogin } from '../../Context/AuthContext';
 import { Container, Item, Content, Footer, Input, Button, Text } from 'native-base'
 import { StackActions } from '@react-navigation/native';
+import Api from '../../Services/Api'
 import ApiNotification from '../../Services/ApiNotification'
 
 export default function VerifikasiScreen({navigation}) {
@@ -11,6 +12,7 @@ export default function VerifikasiScreen({navigation}) {
     const [validWA, setvalidWA] = useState('')
     const [KodeVerifikasi, setKodeVerifikasi] = useState('')
     const [KodeOTP, setKodeOTP] = useState('')
+    const [NomorTidakTerdaftar, setNomorTidakTerdaftar] = useState(false)
 
     function randomCode(length) {
         var result           = '';
@@ -35,7 +37,21 @@ export default function VerifikasiScreen({navigation}) {
                         <Text style={{fontSize:14}}>Masukkan Nomor Whatsapp kamu</Text>        
                         <Item regular style={{marginBottom:10}}>                   
                             <Input keyboardType="number-pad" style={{fontSize:13, height:40}} value={NomorWA} 
-                                onChangeText={text=>{if(text.length>11){setvalidWA("validWA")}else{setvalidWA("")}; setNomorWA(text)}} />
+                                onChangeText={text=>{if(text.length>11){
+                                    Api.profile_select(text).then(res=>{
+                                        if(res.data.length>0){
+                                            setvalidWA("validWA")
+                                        }
+                                        else{
+                                            setNomorTidakTerdaftar(true)
+                                        }
+                                    })
+                                    
+                                }else{
+                                    setvalidWA("")
+                                    setNomorTidakTerdaftar(false)
+                                }; 
+                                setNomorWA(text)}} />
                         </Item>
                     </View> : null
                 }
@@ -45,7 +61,12 @@ export default function VerifikasiScreen({navigation}) {
                         <Text style={{fontSize:14}}>Kode Verifikasi</Text>        
                         <Item regular style={{marginBottom:10}}>                   
                             <Input keyboardType="number-pad" style={{fontSize:13, height:40}} value={KodeVerifikasi} 
-                                onChangeText={text=>{if(text === KodeOTP){setvalidWA("valid")}else{setvalidWA("kirim")};setKodeVerifikasi(text)}} />
+                                onChangeText={text=>{
+                                    if(text === KodeOTP)
+                                        {setvalidWA("valid")}
+                                    else{setvalidWA("kirim")};
+                                    setKodeVerifikasi(text)}
+                                } />
                         </Item>
                     </View> : null
                 }
@@ -63,6 +84,10 @@ export default function VerifikasiScreen({navigation}) {
                     }}>
                             <Text>Kirim Kode Verifikasi</Text>
                     </Button> : null
+                }
+                {
+                    NomorTidakTerdaftar? 
+                    <Text style={{fontStyle:'italic'}}>Nomor ini belum terdaftar. Silahkan Daftarkan Data anda terlebih dahulu.</Text> : null
                 }
                 
             </Content>

@@ -3,12 +3,14 @@ import { View } from 'react-native'
 import { Container, Item, Content, Footer, Input, Button, Text } from 'native-base'
 import ApiNotification from '../../Services/ApiNotification'
 import AsyncStorage from '@react-native-community/async-storage'
+import Api from '../../Services/Api'
 
 export default function VerifikasiTelpScreen({navigation}) {
     const [NomorWA, setNomorWA] = useState('')
     const [validWA, setvalidWA] = useState('')
     const [KodeVerifikasi, setKodeVerifikasi] = useState('')
     const [KodeOTP, setKodeOTP] = useState('')
+    const [NomorTerdaftar, setNomorTerdaftar] = useState(false)
 
     function randomCode(length) {
         var result           = '';
@@ -33,7 +35,18 @@ export default function VerifikasiTelpScreen({navigation}) {
                         <Text style={{fontSize:14}}>Masukkan Nomor Whatsapp kamu</Text>        
                         <Item regular style={{marginBottom:10}}>                   
                             <Input keyboardType="number-pad" style={{fontSize:13, height:40}} value={NomorWA} 
-                                onChangeText={text=>{if(text.length>11){setvalidWA("validWA")}else{setvalidWA("")}; setNomorWA(text)}} />
+                                onChangeText={text=>{if(text.length>11)
+                                    {
+                                        Api.profile_select(text).then(res=>{
+                                            if(res.data.length> 0){
+                                                setNomorTerdaftar(true)
+                                            }
+                                            else{
+                                                setvalidWA("validWA");
+                                            }
+                                        })
+                                         }
+                                else{setvalidWA(""); setNomorTerdaftar(false)}; setNomorWA(text)}} />
                         </Item>
                     </View> : null
                 }
@@ -62,7 +75,10 @@ export default function VerifikasiTelpScreen({navigation}) {
                             <Text>Kirim Kode Verifikasi</Text>
                     </Button> : null
                 }
-                
+                {
+                    NomorTerdaftar? 
+                    <Text style={{fontStyle:'italic'}}>Nomor ini telah terdaftar. Silahkan gunakan nomor yang lain.</Text> : null
+                }
             </Content>
             
         </Container>
